@@ -8,9 +8,9 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-50.times do |i|
+5.times do |i|
   user = User.new(
-    email: "test_user#{i}@gmail.com", # sample: test_user1@gmail.com
+    email: "test_user#{i}@example.com", # sample: test_user1@example.com
     name: "テストuser#{i}",
     password: 'password'
   )
@@ -19,17 +19,8 @@
   user.save!
 end
 
-manager = Manager.new(
-  email: 'test_manager@gmail.com',
-  name: 'テストmanager1',
-  password: 'password'
-)
-
-manager.skip_confirmation! # deviseの確認メールをスキップ
-manager.save!
-
 admin = Admin.new(
-  email: 'test_admin@gmail.com',
+  email: 'test_admin@example.com',
   name: 'テストadmin1',
   password: 'password'
 )

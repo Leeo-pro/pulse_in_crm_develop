@@ -24,19 +24,9 @@ Rails.application.routes.draw do
 
   namespace :users do
     resources :dash_boards, only: [:index]
-    resources :articles, only: %i[index show]
     resource :profile, except: %i[create new]
   end
 
-  # =================================================================
-
-  # manager関連=======================================================
-  devise_for :managers, controllers: {
-    sessions:      'managers/sessions',
-    passwords:     'managers/passwords',
-    confirmations: 'users/confirmations',
-    registrations: 'managers/registrations'
-  }
   # =================================================================
 
   # 共通==============================================================
