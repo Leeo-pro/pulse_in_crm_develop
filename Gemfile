@@ -39,6 +39,9 @@ gem 'rails-i18n', '~> 6.0'
 
 gem 'dotenv-rails'
 
+# システム管理画面
+gem 'administrate'
+
 group :development, :test do
   # ERD生成
   gem 'rails-erd'
