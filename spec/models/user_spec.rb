@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
   let :user do
-    build(:user)
+    FactoryBot.build :user
   end
 
   describe 'バリデーションについて' do
@@ -168,6 +168,98 @@ RSpec.describe User, type: :model do
 
         it 'バリデーションが通ること' do
           expect(subject).to be_valid
+        end
+      end
+    end
+
+    describe '#password' do
+      context '存在しない場合' do
+        before :each do
+          subject.password = nil
+        end
+
+        it 'バリデーションに落ちること' do
+          expect(subject).to be_invalid
+        end
+
+        it 'バリデーションのエラーが正しいこと' do
+          subject.valid?
+          expect(subject.errors.full_messages).to include('パスワードを入力してください')
+        end
+      end
+
+      context '11文字の場合' do
+        before :each do
+          subject.password = 'AAAAaaaa111'
+          subject.password_confirmation = 'AAAAaaaa111'
+        end
+
+        it 'バリデーションに落ちること' do
+          expect(subject).to be_invalid
+        end
+
+        it 'バリデーションのエラーが正しいこと' do
+          subject.valid?
+          expect(subject.errors.full_messages).to include('パスワードは12文字以上で入力してください')
+        end
+      end
+
+      context '12字の場合' do
+        before :each do
+          subject.password = 'AAAAaaaa1111'
+          subject.password_confirmation = 'AAAAaaaa1111'
+        end
+
+        it 'バリデーションが通ること' do
+          expect(subject).to be_valid
+        end
+      end
+
+      context '大文字がない場合' do
+        before :each do
+          subject.password = 'aaaaaa111111'
+          subject.password_confirmation = 'aaaaaa111111'
+        end
+
+        it 'バリデーションに落ちること' do
+          expect(subject).to be_invalid
+        end
+
+        it 'バリデーションのエラーが正しいこと' do
+          subject.valid?
+          expect(subject.errors.full_messages).to include('パスワードパスワードは半角12文字以上で英大文字・小文字・数字それぞれ１文字以上含む必要があります')
+        end
+      end
+
+      context '小文字がない場合' do
+        before :each do
+          subject.password = 'AAAAAA111111'
+          subject.password_confirmation = 'AAAAAA111111'
+        end
+
+        it 'バリデーションに落ちること' do
+          expect(subject).to be_invalid
+        end
+
+        it 'バリデーションのエラーが正しいこと' do
+          subject.valid?
+          expect(subject.errors.full_messages).to include('パスワードパスワードは半角12文字以上で英大文字・小文字・数字それぞれ１文字以上含む必要があります')
+        end
+      end
+
+      context '数字がない場合' do
+        before :each do
+          subject.password = 'AAAAAAaaaaaa'
+          subject.password_confirmation = 'AAAAAAaaaaaa'
+        end
+
+        it 'バリデーションに落ちること' do
+          expect(subject).to be_invalid
+        end
+
+        it 'バリデーションのエラーが正しいこと' do
+          subject.valid?
+          expect(subject.errors.full_messages).to include('パスワードパスワードは半角12文字以上で英大文字・小文字・数字それぞれ１文字以上含む必要があります')
         end
       end
     end

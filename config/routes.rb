@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   # user関連==========================================================
   devise_scope :user do
     root 'users/sessions#new'
+    get ':company_id/signin' => 'users/sessions#new', as: :user_login
   end
 
   devise_for :users, controllers: {
