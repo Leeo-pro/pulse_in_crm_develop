@@ -1,6 +1,12 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  namespace :admin_user do
+      resources :admins
+      resources :users
+
+      root to: "admins#index"
+    end
   mount LetterOpenerWeb::Engine, at: '/letter_opener' if Rails.env.development?
 
   # admin関連=========================================================

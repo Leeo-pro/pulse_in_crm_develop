@@ -31,6 +31,7 @@ gem 'rexml', '~> 3.2', '>= 3.2.4'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.9.3', require: false
+gem "administrate"
 
 gem 'devise'
 gem 'devise-bootstrap-views', '~> 1.0'
